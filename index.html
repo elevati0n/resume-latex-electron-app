@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LaTeX Resume Generator</title>
+</head>
+<body>
+  <button id="openJsonButton">Open JSON</button>
+  <textarea id="jsonInput" placeholder="Enter JSON Resume Data" rows="10" cols="60"></textarea>
+  <button id="generateButton">Generate Resume</button>
+  <code id="latexCodeDisplay"></code>
+  <div id="latexDisplay"></div>
+
+  <button id="useSampleResume">Use Sample Resume</button>
+    <script>
+    window.MathJax = {
+      displayMessages: true,
+      TeX: {
+        extensions: ['autoload-all.js'],
+      },
+      SVG: {
+        fontCache: 'global',
+        linebreaks: { automatic: true },
+        font: 'STIX-Web',
+      },
+      startup: {
+        typeset: true,
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js';
+      script.async = true;
+      document.head.appendChild(script);
+    })();
+    </script>
+  <!-- <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-chtml.js">
+  </script> -->
+  <script src="renderer.js"></script>
+</body>
+</html>
