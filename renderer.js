@@ -359,7 +359,8 @@ document.getElementById('generateButton').addEventListener('click', async () => 
 
     // Render LaTeX content with MathJax
     // renderLatexWithMathJax(latexResume);
-
+    const codeNode = document.getElementById('latexCodeDisplay')
+    codeNode.innerHTML = fullDocument(latexContent)
     // Send the LaTeX content to the main process
     ipcRenderer.send('generate-latex', latexResume);
   } catch (error) {
@@ -392,99 +393,3 @@ async function renderLatexWithMathJax(latexContent) {
   // });
 }
 
-
-// Define the generateLatexResume function and other necessary functions here
-const generateIntroductionSection = (introduction) => {
-  const { title, listItems } = introduction;
-  const formattedTitle = `\\textbf{\\Huge \\scshape ${title}}`;
-  const formattedListItems = listItems.map((item) => `\\small ${item}`).join(" $|$\n    ");
-  const introductionSection = `
-%----------HEADING----------
-\\begin{center}
-    ${formattedTitle} \\\\ \\vspace{1pt}
-    ${formattedListItems}
-    \\vspace{1pt}
-\\end{center}
-`;
-  return introductionSection;
-};
-
-const generateSummarySection = (summary) => {
-  const summarySection = `
-%-----------SUMMARY-----------
-\\section{Executive Summary}
-\\resumeSubHeadingListStart
-\\resumeSubheading
-{JavaScript Tech Lead | Senior Front End Developer}{Computer Engineer}{Specializing in Enterprise Web Commerce Platform Integration}{react, gatsby, analytics, ndoe, async, vanilla}
-\\resumeItemListStart
-\\resumeItem{${summary}}
-\\resumeItemListEnd
-\\resumeSubHeadingListEnd
-`;
-  return summarySection;
-};
-
-const generateExperienceSection = (experience) => {
-  const experienceSection = `
-%-----------EXPERIENCE-----------
-\\section{Experience}
-\\resumeSubHeadingListStart
-${experience.map((exp) => {
-    return `
-% ${exp.title}
-\\resumeSubheading
-{${exp.title}}
-{${exp.listItems[exp.listItems.length - 1]}}
-{${exp.listItems.slice(0, -1).join(" | ")}}
-\\resumeItemListStart
-${exp.listItems.map((item) => `\\resumeItem{${item}}`).join("\n")}
-\\resumeItemListEnd
-`;
-  }).join("\n")}
-\\resumeSubHeadingListEnd
-`;
-  return experienceSection;
-};
-
-const generateSkillsSection = (skills) => {
-  const skillsSection = `
-%-----------SKILLS-----------
-\\section{Skills}
-\\begin{itemize}[leftmargin=0.15in, label={}]
-${skills.skillGroup.map((group) => {
-    return `
-    \\small{\\item{
-    \\textbf{${group.title}}{${group.items.join(", ")}} \\
-    }}`;
-  }).join("\n")}
-\\end{itemize}
-`;
-  return skillsSection;
-};
-
-const generateLatexResume = (resumeData) => {
-  const {
-    introduction,
-    summary,
-    experience,
-    skills
-  } = resumeData.resume;
-
-  const introductionSection = generateIntroductionSection(introduction);
-  const summarySection = generateSummarySection(summary);
-  const experienceSection = generateExperienceSection(experience);
-  const skillsSection = generateSkillsSection(skills);
-
-  const latexResume = `
-% Your LaTeX document preamble here
-
-${introductionSection}
-${summarySection}
-${experienceSection}
-${skillsSection}
-
-% Your LaTeX document closing here
-`;
-
-  return latexResume;
-};
