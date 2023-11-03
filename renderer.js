@@ -358,7 +358,7 @@ document.getElementById('generateButton').addEventListener('click', async () => 
     const latexResume = generateLatexResume(resumeData);
 
     // Render LaTeX content with MathJax
-    renderLatexWithMathJax(latexResume);
+    // renderLatexWithMathJax(latexResume);
 
     // Send the LaTeX content to the main process
     ipcRenderer.send('generate-latex', latexResume);

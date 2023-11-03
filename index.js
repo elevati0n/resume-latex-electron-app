@@ -5,6 +5,10 @@ const { MathJax } = require('mathjax')
 
 const fullDocument = (latexContent) => `${LATEX_START}${latexContent}${LATEX_END}`
 
+const { exec } = require('node:child_process')
+
+
+
 
 /*************************************************************************
 *
@@ -266,16 +270,38 @@ app.whenReady().then(createWindow);
 
 
 // Handle the 'generate-latex' event from the renderer process
-ipcMain.on('generate-latex', (event, latexContent) => {
-  const filePath = 'resume.tex';
+ipcMain.on('generate-latex', async (event, latexContent) => {
+  const filePath = `./out/resume-${Date.now()}`;
 
-  fs.writeFile(filePath, fullDocument(latexContent), (err) => {
+  await fs.writeFile(filePath+'.tex', fullDocument(latexContent), (err) => {
     if (err) {
       console.error('Error saving LaTeX file:', err);
     } else {
       console.log('LaTeX resume saved to', filePath);
+      // run the `ls` command using exec
+      exec(`pdflatex ${filePath}.tex`, async (err, output) => {
+          // once the command has completed, the callback function is called
+          if (err) {
+              // log and return if we encounter an error
+              console.error("could not execute command: ", err)
+              return
+          }
+          // log the output received from the command
+          console.log("Output: \n", output)
+          await output
+      })
     }
-  });
+  })
+  exec(`open ${filePath}.pdf`, (err, output) => {
+            // once the command has completed, the callback function is called
+            if (err) {
+                // log and return if we encounter an error
+                console.error("could not execute command: ", err)
+                return
+            }
+            // log the output received from the command
+            console.log("Output: \n", output)
+        });
 });
 
 ipcMain.on('file-request', (event) => {
