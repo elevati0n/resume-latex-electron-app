@@ -324,3 +324,41 @@ const experienceSampleTemplate = `
   \\resumeItem{Applied advanced techniques to optimize and integrate distributed e-commerce systems, leveraging content management systems, async API calls, custom modules, JSON:API, and GraphQL}
   \\resumeItemListEnd
 `
+
+
+// Function to render LaTeX content with MathJax
+async function renderLatexWithMathJax(latexContent) {
+
+
+    // const latexHTML = await makeLatexDoc(fullDocument(latexContent))
+    const adaptor = MathJax.startup.adaptor;
+    // //
+    // //  If the --css option was specified, output the CSS,
+    // //  Otherwise, output the typeset math as HTML
+    // //
+    // if (true) {
+    //     console.log(adaptor.textContent(MathJax.chtmlStylesheet()));
+    // } else {
+    // console.log(adaptor.outerHTML(node));
+    const outputElement = document.getElementById('latexDisplay');
+    outputElement.innerHTML = '';
+    const codeNode = document.getElementById('latexCodeDisplay')
+    codeNode.innerHTML = fullDocument(latexContent)
+    MathJax.texReset();
+    const node = await MathJax.tex2svgPromise(fullDocument(latexContent));
+    outputElement.appendChild(node);
+    // });
+}
+
+// % ----------- SKILLS-----------
+// \\section{ Skills }
+// \\begin{ itemize } [leftmargin = 0.15in, label = {}]
+// \\small{
+//     \\item{
+//         \\textbf{ General } {: Enterprise Systems Architecture, Dev Ops, Full Stack Web Development, Accessible Design, Test Driven Development, Troubleshooting, Problem Solving, Teaching, Mentoring, Technical Writing } \\\\
+//         \\textbf{Web Application Development } {: JavaScript Technical Lead, E - Commerce Integration, Clean, Readable Code } \\\\
+//         \\textbf{ Languages } {: JavaScript, EScript, TypeScript, Node.Js, Java, Verilog, PHP, HTML, CSS, SCSS, Ruby, C, C++, Python } \\\\
+//         \\textbf{ Technologies } {: React 18, Gatsby, Redux, Gitlab, Vue.Js, Express, Apollo, Django, Next, GraphQL, Spring, Webpack, Angular, Electron, Linux, Debian, Ruby On Rails, BASH, Shell Scripting, Docker, Jira, Google Analytics, Solr, Continuous Integration, Continuous Deployment Pipelines }
+//     }
+// }
+// \\end{ itemize } `

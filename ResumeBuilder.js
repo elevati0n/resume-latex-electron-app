@@ -1,4 +1,16 @@
-const ResumeBuiler = (resumeData) => {
+const ResumeBuiler = ({ resume: { introduction, summary, experience, otherExperience, skills, education } }) => {
+  const generalSection = ({ title, sectionData }) => {
+    const sectionStart = `
+%-----------${title}-----------
+\\section{${title}}
+\\resumeSubHeadingListStart`;
+
+    const sectionEnd = `\\resumeSubHeadingListEnd`
+
+    return `${sectionStart}
+${sectionData}
+${sectionEnd}`
+  }
   // Define the generateLatexResume function and other necessary functions here
   const generateIntroductionSection = (introduction) => {
     const { title, listItems } = introduction;
@@ -16,86 +28,69 @@ const ResumeBuiler = (resumeData) => {
   };
 
   const generateSummarySection = ({ title = '', listItems = [] } = {}) => {
-    const resumeSummary = `
-      %-----------SUMMARY-----------
-      \\section{Executive Summary}
-      \\resumeSubHeadingListStart
-      \\resumeSubheading
+    const resumeSummary = `\\resumeSubheading
       ${title}
-      ${listItems}
-      \\resumeSubHeadingListEnd`;
+      ${listItems}`
     return resumeSummary;
   };
 
   const generateExperienceSection = (experience = [], title = 'Experience') => {
     console.log(experience);
-    const experienceSection = `
-        %-----------EXPERIENCE-----------
-        \\section{${title}}
-        \\resumeSubHeadingListStart
-        ${experience.map((exp) => {
-      return `
-            % ${exp.title}
-            \\resumeSubheading
-            {${exp.title}}
-            {${exp.listItems[exp.listItems.length - 1]}}
-            {${exp.listItems.slice(0, -1).join(" | ")}}
-            \\resumeItemListStart
-            ${exp.listItems.map((item) => `\\resumeItem{${item}}`).join("\n")}
-            \\resumeItemListEnd
-          `;
-    }).join("\n")}
-        \\resumeSubHeadingListEnd
-        `;
+    const experienceSection = `${experience.map((exp) => {
+      return `% ${exp.title}
+\\resumeSubheading
+{${exp.title}}
+{${exp.listItems[exp.listItems.length - 1]}}
+{${exp.listItems.slice(0, -1).join(" | ")}}
+\\resumeItemListStart
+${exp.listItems.map((item) => `\\resumeItem{${item}}`).join("\n")}
+\\resumeItemListEnd`;
+    }).join("\n")
+      }
+\\resumeSubHeadingListEnd`;
     return experienceSection;
   };
 
   const generateSkillsSection = (skills = []) => {
-    const skillsSection = `
-      %-----------SKILLS-----------
-      \\section{Skills}
-      \\begin{itemize}[leftmargin=0.15in, label={}]
-      ${skills.skillGroup.map((group) => {
-      return `
-          \\small{\\item{
-          \\textbf{${group.title}}{${group.items.join(", ")}} \\
-          }}`;
-    }).join("\n")}
-      \\end{itemize}
-    `;
+    const skillsSection = `\\begin{ itemize } [leftmargin = 0.15in, label = {}]
+${skills.skillGroup.map((group) => {
+      return `\\small{\\item{
+\\textbf{${group.title}}{${group.items.join(", ")}} \\
+}}`;
+    }).join("\n")
+      }
+\\end{ itemize } `;
     return skillsSection;
   };
 
   const generateLatexResume = () => {
     console.log(resumeData);
     const {
-      introduction, summary, experience, skills
-    } = resumeData.resume;
+      introduction, summary, experience, otherExperience, skills, education
+    } = resume;
     console.dir({
       introduction,
       summary,
       experience,
-      skills
+      skills,
+      otherExperience,
+      education
     });
     const introductionSection = generateIntroductionSection(introduction);
     const summarySection = generateSummarySection(summary);
     const experienceSection = generateExperienceSection(experience);
+    const experienceOtherSection = generateExperienceSection(otherExperience, 'Other Experience');
     const skillsSection = generateSkillsSection(skills);
-
-    const resumeLatexTemplate = `${latexStart}
-    ${resumeBody}
-    ${resumeHeading}
-    ${experienceSection}
-    ${resumeEducation}
-    ${resumeOtherExperience}
-    ${resumeSkills}
-    ${resumeEnd}
-    `;
-
-
+    const resumeLatexTemplate = `${introductionSection}
+${summarySection}
+${experienceSection}
+${educationSection}
+${experienceOtherSection}
+${skillsSection}
+${resumeEnd}`
     return resumeLatexTemplate;
   };
-  console.log(generateLatexResume(resumeData));
+  return generateLatexResume()
 };
 
 exports.default = ResumeBuiler
