@@ -71,7 +71,7 @@ const sampleResumeJson = {
       {
         "title": "Small Business Owner — Empire Mechanical Solutions, Inc — 2009 - 2017",
         "company": "Empire Mechanical Solutions, Inc",
-        "dates:": "2009 - 2017",
+        "dates": "2009 - 2017",
         "location": "Boston, MA",
         "listItems": [
           "Successfully managed and operated a small automotive repair business while pursuing a college degree, serving a diverse client base.",
@@ -80,10 +80,10 @@ const sampleResumeJson = {
         ]
       },
       {
-        "title": "ASE Certified Dealership Technician — Herb Chambers Honda Infiniti — 2007 - 2010",
+        "title": "ASE Certified Dealership Technician",
         "location": "Boston, MA",
         "company": "Herb Chambers Honda Infiniti",
-        "dates:": "2007 - 2010",
+        "dates": "2007 - 2010",
         "listItems": [
           "Performed vehicle maintenance and repair, specializing in electronic and engine performance.",
           "Held a licensed State (MA) Vehicle Safety and Emissions Inspector certification."
@@ -93,8 +93,8 @@ const sampleResumeJson = {
     "education": [
       {
         "title": "Bachelor of Science in Computer Engineering — Minor in Computer Science",
-        "company": "Northeastern University ",
-        "dates:": "Class of 2018",
+        "company": "Northeastern University",
+        "dates": "Class of 2018",
         "location": "Boston, MA",
         "listItems": [
           "College of Electrical and Computer Engineering"
@@ -231,7 +231,7 @@ const ResumeBuiler = ({ resume }) => {
 {${exp.title}}
 {${exp.location}}
 {${exp.company}}
-{${exp.date}}
+{${exp.dates}}
 \\resumeItemListStart
 ${exp.listItems.map((item) => `\\resumeItem{${item}}`).join("\n")}
 \\resumeItemListEnd`;
@@ -451,9 +451,9 @@ ${summaryListItems}
 \\section{Skills}
 \\begin{itemize}[leftmargin=0.15in, label={}]
     \\small{\\item{
-    \\textbf{General}{: Enterprise Systems Architecture, Dev Ops, Full Stack Web Development, Accessible Design, Test Driven Development, Troubleshooting, Problem Solving, Teaching, Mentoring, Technical Writing} \\
-    \\textbf{Web Application Development}{: JavaScript Technical Lead, E-Commerce Integration, Clean, Readable Code} \\
-    \\textbf{Languages}{: JavaScript, EScript, TypeScript, Node.Js, Java, Verilog, PHP, HTML, CSS, SCSS, Ruby, C, C++, Python } \\
+    \\textbf{General}{: Enterprise Systems Architecture, Dev Ops, Full Stack Web Development, Accessible Design, Test Driven Development, Troubleshooting, Problem Solving, Teaching, Mentoring, Technical Writing} \\\\
+    \\textbf{Web Application Development}{: JavaScript Technical Lead, E-Commerce Integration, Clean, Readable Code} \\\\
+    \\textbf{Languages}{: JavaScript, EScript, TypeScript, Node.Js, Java, Verilog, PHP, HTML, CSS, SCSS, Ruby, C, C++, Python } \\\\
     \\textbf{Technologies}{: React 18, Gatsby, Redux, Gitlab, Vue.Js, Express, Apollo, Django, Next, GraphQL, Spring, Webpack, Angular, Electron, Linux, Debian, Ruby On Rails, BASH, Shell Scripting, Docker, Jira, Google Analytics, Solr, Continuous Integration, Continuous Deployment Pipelines}
     }}
 \\end{itemize} `
@@ -463,8 +463,8 @@ ${summaryListItems}
 ${resumeSummary}
 ${resumeExperience}
 ${resumeEducation}
-${resumeOtherExperience}
-${resumeSkills} `
+${resumeSkills}
+${resumeOtherExperience}`
 }
 
 
@@ -553,9 +553,9 @@ ${summaryListItems}
 \\begin{ itemize } [leftmargin = 0.15in, label = {}]
 \\small{
   \\item{
-    \\textbf{ General } {: Enterprise Systems Architecture, Dev Ops, Full Stack Web Development, Accessible Design, Test Driven Development, Troubleshooting, Problem Solving, Teaching, Mentoring, Technical Writing } \\\\
-    \\textbf{Web Application Development } {: JavaScript Technical Lead, E - Commerce Integration, Clean, Readable Code } \\\\
-    \\textbf{ Languages } {: JavaScript, EScript, TypeScript, Node.Js, Java, Verilog, PHP, HTML, CSS, SCSS, Ruby, C, C++, Python } \\\\
+    \\textbf{ General } {: Enterprise Systems Architecture, Dev Ops, Full Stack Web Development, Accessible Design, Test Driven Development, Troubleshooting, Problem Solving, Teaching, Mentoring, Technical Writing } 
+    \\textbf{Web Application Development } {: JavaScript Technical Lead, E - Commerce Integration, Clean, Readable Code } 
+    \\textbf{ Languages } {: JavaScript, EScript, TypeScript, Node.Js, Java, Verilog, PHP, HTML, CSS, SCSS, Ruby, C, C++, Python } 
     \\textbf{ Technologies } {: React 18, Gatsby, Redux, Gitlab, Vue.Js, Express, Apollo, Django, Next, GraphQL, Spring, Webpack, Angular, Electron, Linux, Debian, Ruby On Rails, BASH, Shell Scripting, Docker, Jira, Google Analytics, Solr, Continuous Integration, Continuous Deployment Pipelines }
   }
 }
