@@ -1,4 +1,15 @@
 // const { sampleResumeJson } = require("./sampleResumeJson");
+const summarySectionSample = `% ----------- SUMMARY-----------
+\\section{Executive Summary }
+\\resumeSubHeadingListStart
+\\resumeSubheading
+{JavaScript Tech Lead | Senior Front End Developer}{Computer Engineer}{Specializing in Enterprise Web Commerce Platform Integration}{react, gatsby, analytics, ndoe, async, vanilla}
+\\resumeItemListStart
+\\resumeItem{Strong background in building modern, responsive websites and single page web applications, achieving complex interactivity, enhancing user experiences,  accessibility and integrating enterprise systems}
+\\resumeItem{Experienced in optimizing and integrating e-commerce systems, streamlining processes, and creating user-friendly, accessible web components.  Clean, readable, maintainable code | Excels at mentoring junior developers}
+\\resumeItemListEnd
+\\resumeSubHeadingListEnd`
+
 const sampleResumeJson = {
   "resume": {
     "introduction": {
@@ -12,27 +23,32 @@ const sampleResumeJson = {
     },
     "experience": [
       {
-        "title": "Senior Web Developer — Therefore Interactive — 2021 - 2023",
+        "title": "Senior Web Developer",
+        "company": "Therefore Interactive",
+        "dates": "2021 - 2023",
+        "location": "Toronto, ON",
         "listItems": [
           "Led as a JavaScript Tech Lead for full-stack web development projects, collaborating with a diverse client base, including government form microsites and financial trading platforms.",
           "Architected modern web solutions, optimizing e-commerce systems and enhancing user experiences, using technologies like React, TypeScript, and Gatsby.",
           "Spearheaded the transition to a decoupled architecture, connecting CMS with modern Front-End frameworks (Gatsby, React, Vue, Next) for robust, accessible web experiences.",
-          "Improved website performance by optimizing code, resulting in a 25\\% decrease in page load times.",
-          "Streamlined the integration of e-commerce systems, reducing processing times by 30\\%."
         ]
       },
       {
-        "title": "Intermediate Web Developer — OPIN Digital — 2019 - 2021",
+        "title": "Intermediate Web Developer",
+        "company": "OPIN Digital",
+        "dates": "2019 - 2021",
+        "location": "Ottawa, ON",
         "listItems": [
           "Specialized as a JavaScript expert and tech lead, providing company-wide JS training and advocating a component-based design approach.",
           "Achieved the highest billing developer for two years, serving 30-50+ clients annually.",
           "Applied advanced techniques to optimize and integrate distributed e-commerce systems, leveraging content management systems, async API calls, and custom modules.",
-          "Trained junior developers in React best practices, resulting in a 40\\% increase in project efficiency.",
-          "Implemented custom modules that improved system performance by 20\\%."
         ]
       },
       {
-        "title": "Junior Software Engineer — Black Duck Software — 2015-2016",
+        "title": "Junior Software Engineer — Black Duck Software — ",
+        "company": " Black Duck Software",
+        "location": "Boston, MA",
+        "dates": "2015-2016",
         "listItems": [
           "Upgraded Java Spring Framework to Java 8, enhancing web application performance.",
           "Identified and resolved runtime issues, implementing efficient solutions.",
@@ -42,7 +58,10 @@ const sampleResumeJson = {
     ],
     "otherExperience": [
       {
-        "title": "Jr Electromechanical Engineer — Rypos — 2014-2015",
+        "title": "Jr Electromechanical Engineer —  — 2014-2015",
+        "company": " Rypos",
+        "location": "Boston, MA",
+        "dates": "2014-2015",
         "listItems": [
           "Collaborated on integrating electromechanical components in distributed systems.",
           "Contributed to the design and testing of the next-generation model, including optical isolation control circuits.",
@@ -51,15 +70,20 @@ const sampleResumeJson = {
       },
       {
         "title": "Small Business Owner — Empire Mechanical Solutions, Inc — 2009 - 2017",
+        "company": "Empire Mechanical Solutions, Inc",
+        "dates:": "2009 - 2017",
+        "location": "Boston, MA",
         "listItems": [
           "Successfully managed and operated a small automotive repair business while pursuing a college degree, serving a diverse client base.",
-          "Conducted automotive repairs, maintenance, and inspections, consistently delivering high-quality service.",
           "Leveraged web and graphic design skills to create branding and marketing materials, establishing a strong brand identity.",
           "Efficiently sourced parts, managed contracts, and fostered lasting relationships with clients, ensuring satisfaction and a high repeat business rate."
         ]
       },
       {
         "title": "ASE Certified Dealership Technician — Herb Chambers Honda Infiniti — 2007 - 2010",
+        "location": "Boston, MA",
+        "company": "Herb Chambers Honda Infiniti",
+        "dates:": "2007 - 2010",
         "listItems": [
           "Performed vehicle maintenance and repair, specializing in electronic and engine performance.",
           "Held a licensed State (MA) Vehicle Safety and Emissions Inspector certification."
@@ -69,8 +93,10 @@ const sampleResumeJson = {
     "education": [
       {
         "title": "Bachelor of Science in Computer Engineering — Minor in Computer Science",
+        "company": "Northeastern University ",
+        "dates:": "Class of 2018",
+        "location": "Boston, MA",
         "listItems": [
-          "Northeastern University — Class of - 2018",
           "College of Electrical and Computer Engineering"
         ]
       }
@@ -178,22 +204,24 @@ const ResumeBuiler = ({ resume }) => {
     const formattedTitle = `\\textbf{\\Huge \\scshape ${title}}`;
     const formattedListItems = listItems.map((item) => `\\small ${item}`).join(" $|$\n    ");
     const introductionSection = `
-  %----------HEADING----------
-  \\begin{center}
-      ${formattedTitle} \\\\ \\vspace{1pt}
-      ${formattedListItems}
-      \\vspace{1pt}
-  \\end{center}
-  `;
+%----------HEADING----------
+\\begin{center}
+    ${formattedTitle} \\\\ \\vspace{1pt}
+    ${formattedListItems}
+    \\vspace{1pt}
+\\end{center}
+`;
     return introductionSection;
   };
 
-  const generateSummarySection = ({ title = '', listItems = [] } = {}) => {
-    const resumeSummary = `\\resumeSubheading
-      ${title}
-      ${listItems}`
-    return resumeSummary;
-  };
+
+
+  // const generateSummarySection = ({ title = '', listItems = [] } = {}) => {
+  //   const resumeSummary = `\\resumeSubheading
+  //     ${title}
+  //     ${listItems}`
+  //   return resumeSummary;
+  // };
 
   const generateExperienceSection = (experience = [], title = 'Experience') => {
     console.log(experience);
@@ -201,14 +229,14 @@ const ResumeBuiler = ({ resume }) => {
       return `% ${exp.title}
 \\resumeSubheading
 {${exp.title}}
-{${exp.listItems[exp.listItems.length - 1]}}
-{${exp.listItems.slice(0, -1).join(" | ")}}
+{${exp.location}}
+{${exp.company}}
+{${exp.date}}
 \\resumeItemListStart
 ${exp.listItems.map((item) => `\\resumeItem{${item}}`).join("\n")}
 \\resumeItemListEnd`;
     }).join("\n")
-      }
-\\resumeSubHeadingListEnd`;
+      }`;
     return experienceSection;
   };
 
@@ -229,7 +257,7 @@ ${skills.skillGroup.map((group) => {
   } = resume;
 
   const introductionSection = generateIntroductionSection(introduction);
-  const summarySection = generateSummarySection(summary);
+  // const summarySection = generateSummarySection(summary);
   const experienceSection = generateExperienceSection(experience);
   const experienceOtherSection = generateExperienceSection(otherExperience, 'Other Experience');
   const skillsSection = generateSkillsSection(skills);
@@ -237,7 +265,7 @@ ${skills.skillGroup.map((group) => {
 
   return {
     introduction: introductionSection,
-    summary: summarySection,
+    summary: summarySectionSample,
     experience: experienceSection,
     otherExperience: experienceOtherSection,
     education: educationSection,
@@ -370,7 +398,7 @@ ${latexEnd}`
 const latexResumeBodyBuilder = (resume) => {
   const {
     introduction,
-    summary,
+    // summary,
     experience,
     otherExperience,
     education,
@@ -415,9 +443,20 @@ ${summaryListItems}
     title: "Other Experience", sectionData: otherExperience
   })
 
-  const resumeSkills = generalSection({
-    title: "Skills", sectionData: skills
-  })
+  // const resumeSkills = generalSection({
+  //   title: "Skills", sectionData: skills
+  // })
+
+  const resumeSkills = `
+\\section{Skills}
+\\begin{itemize}[leftmargin=0.15in, label={}]
+    \\small{\\item{
+    \\textbf{General}{: Enterprise Systems Architecture, Dev Ops, Full Stack Web Development, Accessible Design, Test Driven Development, Troubleshooting, Problem Solving, Teaching, Mentoring, Technical Writing} \\
+    \\textbf{Web Application Development}{: JavaScript Technical Lead, E-Commerce Integration, Clean, Readable Code} \\
+    \\textbf{Languages}{: JavaScript, EScript, TypeScript, Node.Js, Java, Verilog, PHP, HTML, CSS, SCSS, Ruby, C, C++, Python } \\
+    \\textbf{Technologies}{: React 18, Gatsby, Redux, Gitlab, Vue.Js, Express, Apollo, Django, Next, GraphQL, Spring, Webpack, Angular, Electron, Linux, Debian, Ruby On Rails, BASH, Shell Scripting, Docker, Jira, Google Analytics, Solr, Continuous Integration, Continuous Deployment Pipelines}
+    }}
+\\end{itemize} `
 
 
   return `${resumeHeading}
@@ -439,8 +478,7 @@ const sampleResume = () => {
 
 
 
-  const resumeSummary = `
-  % ----------- SUMMARY-----------
+  const resumeSummary = `% ----------- SUMMARY-----------
 \\section{Executive Summary }
 \\resumeSubHeadingListStart
 \\resumeSubheading
